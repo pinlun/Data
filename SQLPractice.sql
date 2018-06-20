@@ -413,3 +413,27 @@ FROM COUNTRYLANGUAGE
 WHERE PERCENTAGE>50
 GROUP BY LANGUAGE
 HAVING COUNT(COUNTRYCODE)>5
+
+--39.we want to see the countries with the lowest population density. 
+--Display the name, density ranking, and population per surface area for the 10 countries with the lowest population density.
+SELECT *
+FROM(SELECT A.NAME
+            ,RANK() OVER(ORDER BY A.POPULATION/A.SURFACEAREA) RAN
+            ,A.POPULATION/A.SURFACEAREA DENSITY
+    FROM(SELECT NAME
+                ,POPULATION
+                ,SURFACEAREA
+        FROM COUNTRY
+        WHERE POPULATION >0) A) X
+WHERE X.RAN<=10
+
+--40. show all the country information we have about the country with the highest life expectancy.
+SELECT TOP 1 *
+FROM COUNTRY
+ORDER BY LIFEEXPECTANCY DESC
+--VERSION2
+SELECT *
+FROM COUNTRY
+WHERE LIFEEXPECTANCY=(SELECT MAX(LIFEEXPECTANCY) FROM COUNTRY)
+
+
