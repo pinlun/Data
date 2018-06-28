@@ -436,4 +436,4 @@ SELECT *
 FROM COUNTRY
 WHERE LIFEEXPECTANCY=(SELECT MAX(LIFEEXPECTANCY) FROM COUNTRY)
 
-
+--41.show all the country information we have about the country with the highest life expectancy for each continent.
